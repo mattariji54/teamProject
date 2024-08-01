@@ -55,7 +55,7 @@
                 @navigate="handleNavigation"
               />
             </div>
-            <div class="user-comment">
+            <div class="user-comment" @click="boardDetail">
               ‘카페 메이플스토리’는 핑크 컬러 테마의 카페 식음 공간과 함께
               몬스터 형태의 오브제로 세련된 분위기를 연출한 테라스, 포토 스팟이
               마련된 굿즈존 등으로 구성됐다.
@@ -85,7 +85,7 @@
                 @navigate="handleNavigation"
               />
             </div>
-            <div class="user-comment">
+            <div class="user-comment" @click="boardDetail">
               ‘카페 메이플스토리’는 핑크 컬러 테마의 카페 식음 공간과 함께
               몬스터 형태의 오브제로 세련된 분위기를 연출한 테라스, 포토 스팟이
               마련된 굿즈존 등으로 구성됐다.
@@ -164,9 +164,14 @@ export default {
       router.push({ name: "MyLikepost" });
     };
 
+    const boardDetail = () => {
+      router.push({ name: "BoardDetail" });
+    };
+
     return {
       postHistory,
       myLikepost,
+      boardDetail,
     };
   },
 };
@@ -327,6 +332,7 @@ h2 {
   margin-left: 25px;
   margin-right: 25px;
   margin-top: 20px;
+  cursor: pointer;
 }
 
 .post-comment {
