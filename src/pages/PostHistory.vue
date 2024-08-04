@@ -108,7 +108,7 @@
         if (action === "PostModify") {
           this.$router.push("/PostModify"); // 수정 페이지로 이동
         } else if (action === "delete") {
-          this.$router.push("/delete"); // 삭제 페이지로 이동
+          this.$router.push("/MainBoard"); // 메인 게시판으로 이동
         }
       },
       
@@ -310,6 +310,7 @@
     float: left;
     margin-left: 40px;
     margin-top: 15px;
+    cursor: pointer;
   }
   
   .table-group-title {
@@ -328,4 +329,3 @@
     text-overflow: ellipsis;
   }
   </style>
-  

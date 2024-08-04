@@ -1,12 +1,14 @@
 <template>
-  <div class="pagination-container"></div>
+  <div class="pagination-container">
+    <!-- 다른 컨텐츠가 여기 올 수 있습니다 -->
+  </div>
   <div class="pagination">
     <button 
       :disabled="currentPage === 1" 
       @click="changePage(currentPage - 1)"
       class="pagination-btn"
     >
-      이전
+      &laquo; <!-- << 삽입 -->
     </button>
     
     <span 
@@ -23,10 +25,11 @@
       @click="changePage(currentPage + 1)"
       class="pagination-btn"
     >
-      다음
+      &raquo; <!-- >> 삽입 -->
     </button>
   </div>
 </template>
+
 
 <script>
 export default {

@@ -7,7 +7,13 @@
           <span class="user-name">김계란</span>
           <span class="creation-date">4 days ago</span>
         </div>
-        <div class="user-option"></div>
+        <div 
+          class="user-option"
+          src="@/assets/image/dot/png"
+          @click="toggleActions"
+          >
+          <PostActions :visible="showActions" @navigate="handleNavigation" />
+        </div>
       </div>
       <div class="content-title">
         <h1>멤버들이랑 현충일 번개 운동</h1>
@@ -74,21 +80,40 @@
 </template>
 
 <script>
+  import PostActions from "./PostActions.vue";
+  /* import { useRouter } from "vue-router"; */
+
 export default {
   name: "BoardDetail",
+  components: {
+    PostActions,
+  },
 
   data() {
     return {
       comment: "",
       isHeartFilled: false,
+      showActions: false,
     };
   },
 
 
   methods: {
-    toggleHeart() {
-      this.isHeartFilled = !this.isHeartFilled;
-    },
+    toggleActions() {
+        console.log("toggleActions called");
+        this.showActions = !this.showActions;
+      },
+      handleNavigation(action) {
+        if (action === "PostModify") {
+          this.$router.push("/PostModify"); // 수정 페이지로 이동
+        } else if (action === "delete") {
+          this.$router.push("/MainBoard"); // 메인 게시판으로 이동
+        }
+      },
+
+      toggleHeart() {
+    this.isHeartFilled = !this.isHeartFilled; // 하트 상태 토글
+  },
 
     checkEnter(event) {
       if (event.key === 'Enter' && !event.shiftKey) {
@@ -205,7 +230,7 @@ input {
   width: 100%;
   height: 100%;
   position: absolute;
-  top: -7px;
+  top: 0px;
   left: 0;
 }
 
@@ -254,11 +279,12 @@ input {
   background: #f2f2f2;
   z-index: 96;
   border-radius: 10px;
-
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1px
 }
+
 
 .item {
   margin: 5px 10px;
@@ -309,7 +335,8 @@ input {
 .content-add input {
   border: none;
   padding: 5px 0px 5px 10px;
-  font-size: 20px;
+  font-size: 15px;
+  opacity: 0.5;
   height: 35px;
   width: 100%;
 }

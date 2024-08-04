@@ -3,14 +3,15 @@
     <div class="main-container">
       <div class="main-content">
         <div class="content-changeimage">
-          <div class="changeimage-icon"></div>
+          <div class="changeimage-icon" @click="triggerFileInput"></div>
           <span>이미지 변경</span>
+          <!-- 파일 업로드 input 추가 -->
+          <input type="file" ref="fileInput" @change="onFileChange" accept="image/*" multiple style="display: none;" />
         </div>
         <div class="content-title">
-          <textarea type="text" placeholder="제목을 입력하세요."></textarea>
+          <textarea v-model="title" type="text" placeholder="제목을 입력하세요."></textarea>
         </div>
-        <div class="content-box" role="textbox">
-          <div class="contentbox-image"></div>
+        <div class="content-box" ref="contentBox" contenteditable="true" @input="onContentInput">
         </div>
         <div class="content-topic">
           <div class="item topic-item"><span>런닝</span></div>
@@ -80,15 +81,91 @@
           />
           <button class="frame-btn">확인</button>
         </div>
-        <button class="feature-modify">수정</button>
+        <button class="feature-modify" @click="confirmSubmit">작성 완료</button>
       </div>
     </div>
   </main>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "PostUpload",
+  data() {
+    return {
+      title: "",
+      content: "",
+    };
+  },
+  methods: {
+    triggerFileInput() {
+      this.$refs.fileInput.click();
+    },
+    onFileChange(event) {
+      const files = event.target.files;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.style.maxWidth = "100%";
+          img.style.display = "block";
+          img.style.margin = "10px 0";
+          const br = document.createElement("div");
+          br.innerHTML = "<br>";
+          this.$refs.contentBox.appendChild(img);
+          this.$refs.contentBox.appendChild(br);
+        };
+        reader.readAsDataURL(file);
+      }
+    },
+    onContentInput(event) {
+      this.content = event.target.innerHTML;
+    },
+
+    selectCategory(category) {
+      this.category = category;
+    },
+    confirmActivity() {
+      console.log("Activity confirmed:", this.activity);
+    },
+    confirmLocation() {
+      console.log("Location confirmed:", this.location);
+    },
+    confirmGroupSize() {
+      console.log("Group size confirmed:", this.groupSize);
+    },
+    confirmSubmit() {
+      if (confirm("글 작성을 완료하시겠습니까?")) {
+        this.submitData();
+      }
+    },
+    submitData() {
+      const data = {
+        title: this.title,
+        content: this.content,
+        images: this.images,
+        category: this.category,
+        activity: this.activity,
+        location: this.location,
+        groupSize: this.groupSize,
+      };
+
+      axios
+        .post("/api/posts/modify", data)
+        .then((response) => {
+          console.log("Data submitted successfully:", response.data);
+          // 리디렉션 처리
+          this.$router.push({ name: 'BoardDetail' });
+        })
+        .catch((error) => {
+          console.error("Error submitting data:", error);
+          // Handle error
+        });
+    },
+  },
 };
 </script>
 
@@ -178,8 +255,11 @@ input {
 .content-box {
   width: 715px;
   height: 500px;
-  overflow: hidden;
+  overflow: auto;
   cursor: text;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .content-topic {
@@ -294,6 +374,7 @@ input {
 
 .category-text {
   margin-bottom: 10px;
+  text-align: start;
 }
 
 .feature-modify {
