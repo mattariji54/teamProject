@@ -135,13 +135,14 @@ export default {
 
   methods: {
     toggleActions() {
+      console.log("toggleActions called");
       this.showActions = !this.showActions;
     },
     handleNavigation(action) {
       if (action === "PostModify") {
         this.$router.push("/PostModify"); // 수정 페이지로 이동
       } else if (action === "delete") {
-        this.$router.push("/delete"); // 삭제 페이지로 이동
+        this.$router.push("/MainBoard"); // 메인 게시판으로 이동
       }
     },
 
@@ -271,7 +272,8 @@ h2 {
 .search-box-icon {
   width: 15px;
   height: 15px;
-  margin-left: 45px;
+  position: absolute;
+  margin-left: 218px;
   cursor: pointer;
 }
 
@@ -325,6 +327,7 @@ h2 {
   width: 40px;
   height: 40px;
   margin-left: 415px;
+  cursor: pointer;
 }
 
 .user-comment {

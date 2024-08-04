@@ -1,4 +1,5 @@
 <template>
+  <main>
     <div class="post-container">
       <div class="search-and-list">
         <div class="feature">
@@ -24,7 +25,7 @@
                 <span class="created-at">6 days ago</span>
               </div>
               <div class="title-and-content">
-                <h2 class="title">첫 마라톤 완주</h2>
+                <h2 class="title" @click="boardDetailA">첫 마라톤 완주</h2>
                 <span class="text"
                   >회사 동기들이랑 마라톤 참여! 첫 마라톤 첫 완주 ㅎㅎ 뿌듯</span
                 >
@@ -62,7 +63,7 @@
                 <span class="created-at">6 days ago</span>
               </div>
               <div class="title-and-content">
-                <h2 class="title">첫 마라톤 완주</h2>
+                <h2 class="title" @click="boardDetailB">첫 마라톤 완주</h2>
                 <span class="text"
                   >회사 동기들이랑 마라톤 참여! 첫 마라톤 첫 완주 ㅎㅎ 뿌듯</span
                 >
@@ -100,7 +101,7 @@
                 <span class="created-at">6 days ago</span>
               </div>
               <div class="title-and-content">
-                <h2 class="title">첫 마라톤 완주</h2>
+                <h2 class="title" @click="boardDetailC">첫 마라톤 완주</h2>
                 <span class="text"
                   >회사 동기들이랑 마라톤 참여! 첫 마라톤 첫 완주 ㅎㅎ 뿌듯</span
                 >
@@ -160,6 +161,7 @@
         </div>
       </div>
     </div>
+  </main>
   </template>
   
   <script>
@@ -176,20 +178,35 @@
         router.push({ name: "Postupload" });
       };
 
+      const boardDetailA = () => {
+        router.push({ name: "BoardDetail" });
+      };
+
+      const boardDetailB = () => {
+        router.push({ name: "BoardDetail" });
+      };
+
+      const boardDetailC = () => {
+        router.push({ name: "BoardDetail" });
+      };
+
       return {
         postUpload,
+        boardDetailA,
+        boardDetailB,
+        boardDetailC,
       };
     },
   };
   </script>
   
   <style scoped>
-  /* main {
+  main {
     display: grid;
     grid-template-columns: 3fr 2fr;
     width: 100%;
     margin-top: 50px;
-  } */
+  }
   
   input {
     outline: none;
@@ -345,6 +362,7 @@
   
   .title {
     margin: 0px 0px 10px 10px;
+    cursor: pointer;
   }
   
   .text {

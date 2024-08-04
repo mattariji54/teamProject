@@ -69,7 +69,7 @@
               />
               <span id="comment-count">5</span>
             </div>
-            <div class="table-group-content">
+            <div class="table-group-content" @click="boardDetail">
               <div class="group-content-post">
                 <p class="table-group-title">멤버들이랑 현충일 번개운동</p>
               </div>
@@ -113,7 +113,7 @@
       if (action === "PostModify") {
         this.$router.push("/PostModify"); // 수정 페이지로 이동
       } else if (action === "delete") {
-        this.$router.push("/delete"); // 삭제 페이지로 이동
+        this.$router.push("/MainBoard"); // 삭제 페이지로 이동
       }
     },
 
@@ -136,9 +136,14 @@
         router.push({ name: "MyComments" });
       };
   
+      const boardDetail = () => {
+        router.push({ name: "BoardDetail" });
+      };
+
       return {
         postHistory,
-        myComments
+        myComments,
+        boardDetail,
       };
     },
   };
@@ -275,7 +280,8 @@
   .search-box-icon {
     width: 15px;
     height: 15px;
-    margin-left: 45px;
+    position: absolute;
+    margin-left: 218px;
     cursor: pointer;
   }
   
@@ -352,6 +358,7 @@
     float: left;
     margin-left: 40px;
     margin-top: 15px;
+    cursor: pointer;
   }
   
   .table-group-title {
